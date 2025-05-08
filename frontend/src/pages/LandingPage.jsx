@@ -58,7 +58,9 @@ const LandingPage = () => {
 
         <div>
             <div>
-                <section></section>
+                <section>
+                    <img src='' />
+                </section>
             </div>
         </div>
 
