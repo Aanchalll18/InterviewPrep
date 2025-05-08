@@ -45,7 +45,8 @@ const LandingPage = () => {
 							way. From preparation to mastery—your all-in-one interview toolkit
 							is here.
 						</p>
-						<button className="" onClick={submitHandler}>
+
+						<button className="bg-black text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-yellow-100 hover:text-black border border-yellow-50 hover:border-yellow-300 transition-colors cursor-pointer " onClick={submitHandler}>
 							Get Started
 						</button>
 					</div>
