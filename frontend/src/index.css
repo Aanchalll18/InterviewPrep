@@ -103,5 +103,5 @@
   }
 
   .btn-small {
-    @apply flex items-cente
+    @apply flex items-center
   }
