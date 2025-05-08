@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {LuSparkles} from 'react-icons/lu'
 
 const LandingPage = () => {
 	const navigate = useNavigate();
@@ -10,7 +11,8 @@ const LandingPage = () => {
 	const submitHandler = () => {};
 
 	return (
-		<div className="w-full min-h-full bg-[#FFFCEF]">
+		<>
+            <div className="w-full min-h-full bg-[#FFFCEF]">
 			<div className="w-[500px] h-[500px] bg-amber-200/20 blur-[65px] absolute top-0 left-2" />
 			<div className="container mx-auto px-4 pt-6 pb-[200px] relative z-10">
 				<header className="flex justify-between items-center mb-16">
@@ -27,7 +29,7 @@ const LandingPage = () => {
 					<div className="w-full md:w-1/2 pr-4 mb-8 md:mb-0">
 						<div className="flex items-center justify-left mb-2">
 							<div className="flex items-center gap-2 text-[13px] text-amber-600 font-semibold bg-amber-100 px-3 py-1 rounded-full border border-amber-300">
-                                AI Powered
+                              <LuSparkles/>AI Powered
                             </div>
 						</div>
 						<h1 className="text-5xl text-black font-medium mb-6 loading-tight">
@@ -53,6 +55,14 @@ const LandingPage = () => {
 				</div>
 			</div>
 		</div>
+
+        <div>
+            <div>
+                <section></section>
+            </div>
+        </div>
+
+        </>
 	);
 };
 
