@@ -1,11 +1,11 @@
-const express =require('express')
-const {authcontrollers} =require('../controllers/authControllers');
-const registerUser = require('../controllers/authControllers');
-const login = require('../controllers/authControllers');
+const express = require('express');
+const { registerUser, login, getUser } = require('../controllers/authControllers'); // ✅ Correct way
+const { protect } = require('../middlewares/Auth');
 
-const userRouter=express.Router();
+const userRouter = express.Router();
 
-userRouter.post('/register',registerUser);
-userRouter.post('/login',login);
+userRouter.post('/register', registerUser); // registerUser is now a function ✅
+userRouter.post('/login', login);           // login is now a function ✅
+userRouter.get('/profile', protect, getUser); 
 
-module.exports=userRouter;
+module.exports = userRouter;

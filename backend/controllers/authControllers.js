@@ -54,7 +54,7 @@ const registerUser = async (req, res) => {
     });
   }
 };
-module.exports = registerUser;
+
 
 
 const login=async(req,res)=>{
@@ -83,14 +83,44 @@ const login=async(req,res)=>{
     }
     return res.status(200).json({
       success:true,
-      message:'User LoggedIn'
+      message:'User LoggedIn',
     })
   } catch (error) {
      console.log(error);
-     return res.success({
+     return res.json({
       success:false,
       message:'Something went Wrong!'
      })
   }
 }
-module.exports=login;
+
+
+const getUser=async(req,res)=>{
+
+  try {
+    const user=await User.findById(req.user.id).select('-password');
+    if(!user){
+      return res.json({
+        success:false,
+        message:'User Not Found!'
+      })
+    }
+    res.json({
+      success:true,
+      user
+    })
+  } catch (error) {
+    console.log(error);
+    return res.json({
+      success:false,
+      message:'Something went wrong!'
+    })
+  }
+}
+
+
+module.exports = {
+  registerUser,
+  login,
+  getUser 
+};
