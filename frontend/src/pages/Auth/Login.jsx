@@ -1,78 +1,93 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { X } from "lucide-react";
 
-const Login = ({ setCurrentPage }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-
-  const navigate = useNavigate();
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    if (!email || !password) {
-      setError('Both fields are required.');
-      return;
-    }
-
-    try {
-      // TODO: Replace with actual login logic
-      console.log('Logging in with:', { email, password });
-      setError(null);
-      // navigate("/dashboard"); // Example after successful login
-    } catch (err) {
-      setError('Invalid email or password.');
-    }
-  };
+const Login = ({ onClose }) => {
+  const [state, setState] = React.useState("login");
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   return (
-    <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
-      <h3 className="text-2xl font-semibold text-center mb-2">Welcome Back</h3>
-      <p className="text-center text-gray-600 mb-6">Please enter your details to log in</p>
-
-      <form onSubmit={handleLogin} className="space-y-5">
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-          <input
-            type="email"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@example.com"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-          <input
-            type="password"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-          />
-        </div>
-
+    <div className="fixed inset-0 z-50 bg-black/40 flex justify-center items-center">
+      <form className="relative flex flex-col gap-4 p-8 py-12 w-80 sm:w-[352px] rounded-lg shadow-xl border border-gray-200 bg-white">
+     
         <button
-          type="submit"
-          className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2.5 rounded-md transition duration-200"
+          type="button"
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-500 hover:text-red-500"
         >
-          Login
+          <X size={20} />
+        </button>
+
+        <p className="text-2xl font-medium m-auto">
+          <span className="text-indigo-500">User</span>{" "}
+          {state === "login" ? "Login" : "Sign Up"}
+        </p>
+
+        {state === "register" && (
+          <div className="w-full">
+            <p>Name</p>
+            <input
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+              placeholder="type here"
+              className="border border-gray-200 rounded w-full p-2 mt-1 outline-indigo-500"
+              type="text"
+              required
+            />
+          </div>
+        )}
+
+        <div className="w-full">
+          <p>Email</p>
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            placeholder="type here"
+            className="border border-gray-200 rounded w-full p-2 mt-1 outline-indigo-500"
+            type="email"
+            required
+          />
+        </div>
+
+        <div className="w-full">
+          <p>Password</p>
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            placeholder="type here"
+            className="border border-gray-200 rounded w-full p-2 mt-1 outline-indigo-500"
+            type="password"
+            required
+          />
+        </div>
+
+        {state === "register" ? (
+          <p>
+            Already have an account?{" "}
+            <span
+              onClick={() => setState("login")}
+              className="text-indigo-500 cursor-pointer"
+            >
+              click here
+            </span>
+          </p>
+        ) : (
+          <p>
+            Create an account?{" "}
+            <span
+              onClick={() => setState("register")}
+              className="text-indigo-500 cursor-pointer"
+            >
+              click here
+            </span>
+          </p>
+        )}
+
+        <button className="bg-indigo-500 hover:bg-indigo-600 transition-all text-white w-full py-2 rounded-md cursor-pointer">
+          {state === "register" ? "Create Account" : "Login"}
         </button>
       </form>
-
-      <div className="mt-6 text-sm text-center text-gray-600">
-        Don't have an account?{' '}
-        <button
-          onClick={() => setCurrentPage('signup')}
-          className="text-yellow-600 hover:underline font-medium"
-        >
-          Sign up
-        </button>
-      </div>
     </div>
   );
 };

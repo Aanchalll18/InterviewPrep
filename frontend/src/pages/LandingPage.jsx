@@ -119,22 +119,14 @@ const LandingPage = () => {
 				copyright@2025
 			</div>
 
-			<Modal 
-                isOpen={openAuthModal}
-                onclose={()=>{
-                    setOpenAuthModal(false);
-                    setCurrentPage("login")
-                }}
-                hideHeader
-            >
-				<div>
-					{currentPage === "login" ? (
-						<Login setCurrentPage={setCurrentPage} />
-					) : currentPage === "signup" ? (
-						<SignUp setCurrentPage={setCurrentPage} />
-					) : null}
-				</div>
-			</Modal>
+			{openAuthModal && (
+				<Login
+					onClose={() => {
+						setOpenAuthModal(false);
+						setCurrentPage("login");
+					}}
+				/>
+			)}
 		</>
 	);
 };
