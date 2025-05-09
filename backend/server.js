@@ -3,7 +3,8 @@ const express=require("express")
 const cors=require("cors")
 const path=require("path");
 const connectDB = require("./config/db");
-const authRoute=require('./router/authRoute')
+const authRoute=require('./router/authRoute');
+const qRoute =require('./router/sessionRoute')
 
 const app=express();
 
@@ -19,6 +20,8 @@ connectDB()
 app.use(express.json())
 
 app.use('/api/auth',authRoute)
+app.use('/api/session',qRoute)
+
 
 app.use('/uploads',express.static(path.join(__dirname,"uploads"),{}));
 
