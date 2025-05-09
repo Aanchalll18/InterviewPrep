@@ -55,3 +55,42 @@ const registerUser = async (req, res) => {
   }
 };
 module.exports = registerUser;
+
+
+const login=async(req,res)=>{
+  try {
+    const {email,password}=req.body;
+    if(!email || !password){
+      return res.json({
+        success:false,
+        message:'All fields are required!'
+      })
+    }
+    const user=await User.findOne({email});
+    if(!user){
+      return res.json({
+        success:false,
+        message:'User Not found!'
+      })
+    }
+    const isMatch=await bcrypt.compare(password,user.password);
+
+    if(!isMatch){
+      return res.json({
+        success:false,
+        message:'Incorrect Password'
+      })
+    }
+    return res.status(200).json({
+      success:true,
+      message:'User LoggedIn'
+    })
+  } catch (error) {
+     console.log(error);
+     return res.success({
+      success:false,
+      message:'Something went Wrong!'
+     })
+  }
+}
+module.exports=login;
